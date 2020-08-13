@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.qls.R;
@@ -15,15 +16,18 @@ import java.util.List;
 
 public class BookAdapter extends BaseAdapter {
     private List<Book> bookList = new ArrayList<>();
-    private List<BookType> typeList = new ArrayList<>();
     private OnBookDeleteClickListener mListener;
     private int position;
 
 
-    public void setBookList(List<Book> bookList, List<BookType> typeList, OnBookDeleteClickListener listener) {
+    public void setBookList(List<Book> bookList, OnBookDeleteClickListener listener) {
         this.bookList = bookList;
-        this.typeList = typeList;
         this.mListener = listener;
+        notifyDataSetChanged();
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
         notifyDataSetChanged();
     }
 
@@ -52,16 +56,11 @@ public class BookAdapter extends BaseAdapter {
         position = i;
         view = View.inflate(viewGroup.getContext(), R.layout.item_book, null);
         Book book = bookList.get(i);
-        String nameType = "";
-        for (int j = 0; j < typeList.size(); j++) {
-            if (book.getIdType() == typeList.get(j).getId()) {
-                nameType = typeList.get(j).getName();
-            }
-        }
+
         ((TextView) view.findViewById(R.id.txt_name)).setText(book.getName());
         ((TextView) view.findViewById(R.id.txt_description)).setText(book.getDescription());
-        ((TextView) view.findViewById(R.id.txt_type)).setText(nameType);
-        ((TextView) view.findViewById(R.id.txt_review)).setText(book.getReview());
+        ((TextView) view.findViewById(R.id.txt_type)).setText(book.getTypeName());
+        ((RatingBar) view.findViewById(R.id.rating_bar_item)).setRating(book.getReview());
         ((ImageView) view.findViewById(R.id.img_book)).setImageURI(book.getImageUri());
 
         (view.findViewById(R.id.img_delete)).setOnClickListener(new View.OnClickListener() {

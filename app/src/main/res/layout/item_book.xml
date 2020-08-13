@@ -47,13 +47,14 @@
             android:text="123"
             android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/txt_review"
-            android:layout_width="match_parent"
+        <RatingBar
+            android:layout_marginLeft="16dp"
+            android:id="@+id/rating_bar_item"
+            android:numStars="5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:text="123"
-            android:textSize="17dp" />
+            android:layout_gravity="left"
+            style="@style/RatingBarSmall" />
 
     </LinearLayout>
 

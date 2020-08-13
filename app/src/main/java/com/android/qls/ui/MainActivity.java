@@ -3,7 +3,9 @@ package com.android.qls.ui;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.android.qls.DatabaseHelper;
 import com.android.qls.adapter.PagerAdapter;
@@ -52,21 +54,27 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
+        findViewById(R.id.fab_filter).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, BookFilterActivity.class));
+            }
+        });
 
     }
 
-    public void initTypeList() {
-        if (db.getAllToyType().size() == 0) {
-            db.addToyType(new BookType("Trinh thám", "Nói về thám tử phá án"));
-            db.addToyType(new BookType("Ngôn tình", "Nói về tình yêu"));
-        }
-    }
+//    public void initTypeList() {
+//        if (db.getAllToyType().size() == 0) {
+//            db.addToyType(new BookType("Trinh thám", "Nói về thám tử phá án"));
+//            db.addToyType(new BookType("Ngôn tình", "Nói về tình yêu"));
+//        }
+//    }
 
-    public void initToyList() {
-        if (db.getAllToy().size() == 0) {
-            db.addBook(new Book(1, "Conan", 001, "conan", R.drawable.sach, "3 sao"));
-            db.addBook(new Book(2, "Love", 002, "love", R.drawable.sach, "3 sao"));
-            db.addBook(new Book(3, "Sherlock holmes", 001, "holmes", R.drawable.sach, "5 sao"));
-        }
-    }
+//    public void initToyList() {
+//        if (db.getAllToy().size() == 0) {
+//            db.addBook(new Book(1, "Conan", 001, "conan", R.drawable.sach, 3));
+//            db.addBook(new Book(2, "Love", 002, "love", R.drawable.sach, 3));
+//            db.addBook(new Book(3, "Sherlock holmes", 001, "holmes", R.drawable.sach, 3));
+//        }
+//    }
 }

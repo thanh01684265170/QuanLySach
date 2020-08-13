@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.android.qls.DatabaseHelper;
 import com.android.qls.R;
-import com.android.qls.adapter.BookAdapter;
 import com.android.qls.adapter.BookTypeAdapter;
 
 public class BookTypeFragment extends Fragment implements BookTypeAdapter.OnTypeDeleteClickListener {
@@ -44,22 +43,13 @@ public class BookTypeFragment extends Fragment implements BookTypeAdapter.OnType
         typeAdapter.setTypeList(database.getAllToyType(), this);
     }
 
-    private void addListener(){
+    private void addListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DetailBookTypeActivity.openDetailTypeActivity(getActivity(), i);
             }
         });
-
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                database.deleteToyType(typeAdapter.getItem(i));
-//                typeAdapter.deleteType(i);
-//                return false;
-//            }
-//        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

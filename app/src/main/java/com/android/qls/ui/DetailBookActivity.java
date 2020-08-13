@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -46,10 +47,10 @@ public class DetailBookActivity extends AppCompatActivity {
     private TextView inputId;
     private TextView inputName;
     private TextView inputDescription;
-    private TextView inputReview;
     private TextView inputType;
     private ImageView image;
     private Button buttonUpdate;
+    private RatingBar ratingBar;
     private List<BookType> bookTypes;
 
     @Override
@@ -86,8 +87,8 @@ public class DetailBookActivity extends AppCompatActivity {
         inputId = findViewById(R.id.input_id);
         inputName = findViewById(R.id.input_name);
         inputDescription = findViewById(R.id.input_description);
-        inputReview = findViewById(R.id.input_review);
         inputType = findViewById(R.id.tvChooseType);
+        ratingBar = findViewById(R.id.rating_bar);
         image = findViewById(R.id.image);
         if (EDIT) {
             String type = "";
@@ -99,7 +100,7 @@ public class DetailBookActivity extends AppCompatActivity {
             inputId.setText(String.valueOf(book.getId()));
             inputName.setText(book.getName());
             inputDescription.setText(book.getDescription());
-            inputReview.setText(book.getReview());
+            ratingBar.setRating(book.getReview());
             inputType.setText(type);
             buttonUpdate.setText("Update");
             image.setImageURI(book.getImageUri());
@@ -158,9 +159,10 @@ public class DetailBookActivity extends AppCompatActivity {
                 Integer.parseInt(inputId.getText().toString()),
                 inputName.getText().toString(),
                 bookType.getId(),
+                bookType.getName(),
                 inputDescription.getText().toString(),
                 img,
-                inputReview.getText().toString());
+                (int) ratingBar.getRating());
         database.addBook(s);
         onBackPressed();
         database.closeDB();
@@ -169,8 +171,10 @@ public class DetailBookActivity extends AppCompatActivity {
     private void editToy() {
         book.setName(inputName.getText().toString());
         book.setDescription(inputDescription.getText().toString());
-        book.setReview(inputReview.getText().toString());
-        book.setImage(img);
+        book.setReview((int) ratingBar.getRating());
+        if (!img.isEmpty()) {
+            book.setImage(img);
+        }
         database.updateToy(book);
         onBackPressed();
         database.closeDB();

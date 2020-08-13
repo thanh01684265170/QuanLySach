@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table toy
     private static final String KEY_NAME_BOOK = "namebook";
     private static final String KEY_TYPE_ID = "idType";
+    private static final String KEY_TYPE_NAME = "typeName";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_REVIEW = "review";
@@ -41,9 +42,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ID_BOOK + " INTEGER,"
             + KEY_NAME_BOOK + " TEXT,"
             + KEY_TYPE_ID + " INTEGER,"
+            + KEY_TYPE_NAME + " TEXT,"
             + KEY_DESCRIPTION + " TEXT,"
             + KEY_IMAGE + " TEXT,"
-            + KEY_REVIEW + " TEXT"
+            + KEY_REVIEW + " INTEGER"
             + ")";
 
     private static final String SQL_CREATE_TABLE_BOOK_TYPE = "CREATE TABLE "
@@ -113,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_BOOK, book.getName());
         values.put(KEY_TYPE_ID, book.getIdType());
+        values.put(KEY_TYPE_NAME, book.getTypeName());
         values.put(KEY_DESCRIPTION, book.getDescription());
         values.put(KEY_IMAGE, book.getImage());
         values.put(KEY_REVIEW, book.getReview());
@@ -130,6 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_BOOK, book.getName());
         values.put(KEY_TYPE_ID, book.getIdType());
+        values.put(KEY_TYPE_NAME, book.getTypeName());
         values.put(KEY_DESCRIPTION, book.getDescription());
         values.put(KEY_IMAGE, book.getImage());
         values.put(KEY_REVIEW, book.getReview());
@@ -147,12 +151,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             int idType = cursor.getInt(2);
-            String description = cursor.getString(3);
-            String image = cursor.getString(4);
-            String review = cursor.getString(5);
-            list.add(new Book(id, name, idType, description, image, review));
+            String typeName = cursor.getString(3);
+            String description = cursor.getString(4);
+            String image = cursor.getString(5);
+            int review = cursor.getInt(6);
+            list.add(new Book(id, name, idType, typeName, description, image, review));
             cursor.moveToNext();
         }
+        return list;
+    }
+
+    public ArrayList<Book> getToyByStartAndType(int star, String type) {
+        ArrayList<Book> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+//        Cursor cursor = db.rawQuery("select * from " +TABLE_BOOK +" where " + KEY_TYPE_NAME + " = '" + type +"'", null);
+        Cursor cursor = db.rawQuery("select * from " + TABLE_BOOK +
+                " where " + KEY_TYPE_NAME + " = '" + type + "'" +
+                " and " + KEY_REVIEW + " >= '" + star + "'" , null);
+
+        if (cursor != null) cursor.moveToFirst();
+        do {
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int idType = cursor.getInt(2);
+            String typeName = cursor.getString(3);
+            String description = cursor.getString(4);
+            String image = cursor.getString(5);
+            int review = cursor.getInt(6);
+            list.add(new Book(id, name, idType, typeName, description, image, review));
+        } while (cursor.moveToNext());
         return list;
     }
 

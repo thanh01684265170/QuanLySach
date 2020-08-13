@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableEnd="@drawable/ic_select"
+        android:drawableRight="@drawable/ic_select"
+        android:hint="Thể loại sách"
+        android:padding="12dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableEnd="@drawable/ic_select"
+        android:drawableRight="@drawable/ic_select"
+        android:hint="Đánh giá"
+        android:padding="12dp"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btn_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Lọc" />
+
+    <ListView
+        android:id="@+id/list_filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

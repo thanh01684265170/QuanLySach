@@ -40,10 +40,10 @@ public class BookFragment extends Fragment implements BookAdapter.OnBookDeleteCl
     @Override
     public void onStart() {
         super.onStart();
-        bookAdapter.setBookList(database.getAllToy(), database.getAllToyType(), this);
+        bookAdapter.setBookList(database.getAllToy(), this);
     }
 
-    private void addListener(){
+    private void addListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

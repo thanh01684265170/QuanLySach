@@ -8,11 +8,22 @@ public class Book {
     private int id;
     private String name;
     private int idType;
+    private String typeName;
     private String description;
     private String image;
-    private String review;
+    private int review;
 
-    public Book(int id, String name, int idType, String description, String image, String review) {
+    public Book(int id, String name, int idType, String typeName, String description, String image, int review) {
+        this.id = id;
+        this.name = name;
+        this.idType = idType;
+        this.typeName = typeName;
+        this.description = description;
+        this.image = image;
+        this.review = review;
+    }
+
+    public Book(String name, int idType, String description, String image, int review) {
         this.id = id;
         this.name = name;
         this.idType = idType;
@@ -21,19 +32,11 @@ public class Book {
         this.review = review;
     }
 
-    public Book(String name, int idType, String description, String image, String review) {
+    public Book(int id, String name, int idType, String typeName, String description, int image, int review) {
         this.id = id;
         this.name = name;
         this.idType = idType;
-        this.description = description;
-        this.image = image;
-        this.review = review;
-    }
-
-    public Book(int id, String name, int idType, String description, int image, String review) {
-        this.id = id;
-        this.name = name;
-        this.idType = idType;
+        this.typeName = typeName;
         this.description = description;
         this.image = getURLForResource(image);
         this.review = review;
@@ -64,6 +67,14 @@ public class Book {
         this.idType = idType;
     }
 
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -80,11 +91,11 @@ public class Book {
         this.image = image;
     }
 
-    public String getReview() {
+    public int getReview() {
         return review;
     }
 
-    public void setReview(String review) {
+    public void setReview(int review) {
         this.review = review;
     }
 
@@ -92,7 +103,7 @@ public class Book {
         return Uri.parse(image);
     }
 
-    public String getURLForResource (int resourceId) {
+    public String getURLForResource(int resourceId) {
         return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
     }
 }
