@@ -40,28 +40,32 @@ public class BookFragment extends Fragment implements BookAdapter.OnBookDeleteCl
     @Override
     public void onStart() {
         super.onStart();
-        bookAdapter.setBookList(database.getAllToy(), this);
+        //Lay danh sach ra hien thi
+        bookAdapter.setBookList(database.getAllBook(), this);
     }
 
     private void addListener() {
+        //Xu ly su kien cham vao cac phan tu cua danh sach
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DetailBookActivity.openDetailToyActivity(getActivity(), i);
+                DetailBookActivity.openDetailBookActivity(getActivity(), i);
             }
         });
 
+        // Xu ly su kien cham vao nut them
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailBookActivity.openDetailToyActivity(getActivity(), DetailBookActivity.ADD_POSITION);
+                DetailBookActivity.openDetailBookActivity(getActivity(), DetailBookActivity.ADD_POSITION);
             }
         });
     }
 
     @Override
     public void onClick(int position) {
-        database.deleteToy(bookAdapter.getItem(position));
+        //Xu ly viec xoa sach
+        database.deleteBook(bookAdapter.getItem(position));
         bookAdapter.deleteBook(position);
     }
 }

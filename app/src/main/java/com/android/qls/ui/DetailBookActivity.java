@@ -33,13 +33,6 @@ public class DetailBookActivity extends AppCompatActivity {
     public static final String EXTRA_POSITION = "EXTRA_POSITION";
     public static final int ADD_POSITION = -1;
     public static boolean EDIT = false;
-
-    public static void openDetailToyActivity(Activity activity, int position) {
-        Intent intent = new Intent(activity, DetailBookActivity.class);
-        intent.putExtra(EXTRA_POSITION, position);
-        activity.startActivity(intent);
-    }
-
     private DatabaseHelper database;
     private Book book;
     private BookType bookType;
@@ -53,20 +46,27 @@ public class DetailBookActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private List<BookType> bookTypes;
 
+    public static void openDetailBookActivity(Activity activity, int position) {
+        Intent intent = new Intent(activity, DetailBookActivity.class);
+        intent.putExtra(EXTRA_POSITION, position);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_book);
         database = new DatabaseHelper(this);
         bookTypes = new ArrayList<>();
-        bookTypes = database.getAllToyType();
+        bookTypes = database.getAllBookType();
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, ADD_POSITION);
         if (position != ADD_POSITION) {
-            book = database.getAllToy().get(position);
+            book = database.getAllBook().get(position);
             EDIT = true;
         } else EDIT = false;
-        addViews();
+        initViews();
+        initData();
         addListeners();
     }
 
@@ -82,7 +82,7 @@ public class DetailBookActivity extends AppCompatActivity {
         }
     }
 
-    private void addViews() {
+    private void initViews() {
         buttonUpdate = findViewById(R.id.button_update);
         inputId = findViewById(R.id.input_id);
         inputName = findViewById(R.id.input_name);
@@ -90,6 +90,9 @@ public class DetailBookActivity extends AppCompatActivity {
         inputType = findViewById(R.id.tvChooseType);
         ratingBar = findViewById(R.id.rating_bar);
         image = findViewById(R.id.image);
+    }
+
+    private void initData() {
         if (EDIT) {
             String type = "";
             for (int i = 0; i < bookTypes.size(); i++) {
@@ -110,6 +113,7 @@ public class DetailBookActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
+        //Chon anh
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,11 +123,13 @@ public class DetailBookActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 2);
             }
         });
+
+        //Cap nhat sach
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (EDIT) editToy();
-                else addToy();
+                if (EDIT) editBook();
+                else addBook();
             }
         });
 
@@ -154,7 +160,7 @@ public class DetailBookActivity extends AppCompatActivity {
         });
     }
 
-    private void addToy() {
+    private void addBook() {
         Book s = new Book(
                 Integer.parseInt(inputId.getText().toString()),
                 inputName.getText().toString(),
@@ -168,14 +174,14 @@ public class DetailBookActivity extends AppCompatActivity {
         database.closeDB();
     }
 
-    private void editToy() {
+    private void editBook() {
         book.setName(inputName.getText().toString());
         book.setDescription(inputDescription.getText().toString());
         book.setReview((int) ratingBar.getRating());
         if (!img.isEmpty()) {
             book.setImage(img);
         }
-        database.updateToy(book);
+        database.updateBook(book);
         onBackPressed();
         database.closeDB();
     }

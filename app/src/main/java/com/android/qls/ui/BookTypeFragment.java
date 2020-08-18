@@ -40,10 +40,12 @@ public class BookTypeFragment extends Fragment implements BookTypeAdapter.OnType
     @Override
     public void onStart() {
         super.onStart();
-        typeAdapter.setTypeList(database.getAllToyType(), this);
+        //Lay danh sach loai truyen
+        typeAdapter.setTypeList(database.getAllBookType(), this);
     }
 
     private void addListener() {
+        //Bat su kien cham vao tung the loai truyen
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -51,6 +53,7 @@ public class BookTypeFragment extends Fragment implements BookTypeAdapter.OnType
             }
         });
 
+        //Bat su kien them loai truyen
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +64,8 @@ public class BookTypeFragment extends Fragment implements BookTypeAdapter.OnType
 
     @Override
     public void onClick(int position) {
-        database.deleteToyType(typeAdapter.getItem(position));
+        //Xu ly su kien xoa tung the loai truyen
+        database.deleteBookType(typeAdapter.getItem(position));
         typeAdapter.deleteType(position);
     }
 }

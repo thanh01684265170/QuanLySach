@@ -33,12 +33,12 @@ public class DetailBookTypeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_toy_book);
+        setContentView(R.layout.activity_detail_type_book);
         database = new DatabaseHelper(this);
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, ADD_POSITION);
         if (position != ADD_POSITION) {
-            bookType = database.getAllToyType().get(position);
+            bookType = database.getAllBookType().get(position);
             EDIT = true;
         } else EDIT = false;
         addViews();
@@ -59,25 +59,26 @@ public class DetailBookTypeActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
+        //Cap nhat loai sach
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (EDIT) editToyType();
-                else addToyType();
+                if (EDIT) editBookType();
+                else addBookType();
             }
         });
     }
 
-    private void addToyType() {
+    private void addBookType() {
         BookType bookType = new BookType(inputName.getText().toString(), inputDescribe.getText().toString());
-        database.addToyType(bookType);
+        database.addBookType(bookType);
         onBackPressed();
         database.closeDB();
     }
-    private void editToyType() {
+    private void editBookType() {
         bookType.setName(inputName.getText().toString());
         bookType.setDescribe(inputDescribe.getText().toString());
-        database.updateToyType(bookType);
+        database.updateBookType(bookType);
         onBackPressed();
         database.closeDB();
     }
