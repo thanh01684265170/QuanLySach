@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Common column names
     private static final String KEY_ID_BOOK = "id";
 
-    // Table toy
+    // Table book
     private static final String KEY_NAME_BOOK = "namebook";
     private static final String KEY_TYPE_ID = "idType";
     private static final String KEY_TYPE_NAME = "typeName";
@@ -72,7 +72,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addToyType(BookType bookType) {
+    //Them loai sach
+    public void addBookType(BookType bookType) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_TYPE, bookType.getName());
@@ -80,12 +81,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_BOOK_TYPE, null, values);
     }
 
-    public void deleteToyType(BookType bookType) {
+    //Xoa loai sach
+    public void deleteBookType(BookType bookType) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_BOOK_TYPE, KEY_ID_TYPE + " = ?", new String[]{String.valueOf(bookType.getId())});
     }
 
-    public void updateToyType(BookType bookType) {
+    //Cap nhat loai sach
+    public void updateBookType(BookType bookType) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_TYPE, bookType.getName());
@@ -93,7 +96,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_BOOK_TYPE, values, KEY_ID_TYPE + " = ?", new String[]{String.valueOf(bookType.getId())});
     }
 
-    public ArrayList<BookType> getAllToyType() {
+    //Lay toan bo loai sach
+    public ArrayList<BookType> getAllBookType() {
         ArrayList<BookType> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
@@ -110,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    //Them sach
     public void addBook(Book book) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -123,12 +128,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_BOOK, null, values);
     }
 
-    public void deleteToy(Book book) {
+    //Xoa sach
+    public void deleteBook(Book book) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_BOOK, KEY_ID_BOOK + " = ?", new String[]{String.valueOf(book.getId())});
     }
 
-    public void updateToy(Book book) {
+    //Cap nhat sach
+    public void updateBook(Book book) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_BOOK, book.getName());
@@ -140,7 +147,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_BOOK, values, KEY_ID_BOOK + " = ?", new String[]{String.valueOf(book.getId())});
     }
 
-    public ArrayList<Book> getAllToy() {
+    //Lay toan bo sach
+    public ArrayList<Book> getAllBook() {
         ArrayList<Book> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
@@ -161,7 +169,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<Book> getToyByStartAndType(int star, String type) {
+    //Lay sach theo danh gia
+    public ArrayList<Book> getBookByStartAndType(int star, String type) {
         ArrayList<Book> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 

@@ -60,7 +60,7 @@ public class BookFilterActivity extends AppCompatActivity implements BookAdapter
         bookRating.add(new BookType(3, "3 Sao"));
         bookRating.add(new BookType(4, "4 Sao"));
         bookRating.add(new BookType(5, "5 Sao"));
-        bookTypes = database.getAllToyType();
+        bookTypes = database.getAllBookType();
     }
 
     private void handleFilter() {
@@ -90,6 +90,7 @@ public class BookFilterActivity extends AppCompatActivity implements BookAdapter
             }
         });
 
+        //Hien thi danh sach rating
         tvRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +121,7 @@ public class BookFilterActivity extends AppCompatActivity implements BookAdapter
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bookAdapter.setBookList(database.getToyByStartAndType(bookStar.getId(), bookType.getName()));
+                bookAdapter.setBookList(database.getBookByStartAndType(bookStar.getId(), bookType.getName()));
             }
         });
     }
